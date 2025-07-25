@@ -9,6 +9,12 @@ import {
   FaFileAlt,
 } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import IeltsPromo from "./IeltsPromo";
+import CourseHighlights from "./CourseHighlights";
+import ContentPreview from "./ContentPreview";
+import CourseForWhom from "./CourseForWhom";
+import CourseFeatures from "./CourseFeatures";
+import CourseExtraDetails from "./CourseExtraDetails";
 
 interface Course {
   id: number;
@@ -35,6 +41,7 @@ interface CourseDetailsProps {
 }
 
 export default function CourseDetails({ course }: CourseDetailsProps) {
+  console.log("Course Details:", course);
   return (
     <div className=" text-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -73,7 +80,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
             </div>
 
             {/* Instructor Section */}
-            <div className="bg-white bg-opacity-10 rounded-lg p-6">
+            <div className="bg-white bg-opacity-10 rounded-lg ">
               <h2 className="text-2xl font-bold mb-6 bengali-text">
                 কোর্স ইন্সট্রাক্টর
               </h2>
@@ -99,7 +106,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
             </div>
 
             {/* Course Content Preview */}
-            <div className="bg-white bg-opacity-10 rounded-lg p-6">
+            <div className="bg-white bg-opacity-10 rounded-lg">
               <h2 className="text-2xl font-bold mb-6 bengali-text">
                 কোর্সটি মেথড সাজানো হয়েছে
               </h2>
@@ -150,6 +157,12 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
                 </div>
               </div>
             </div>
+            <IeltsPromo />
+            <CourseHighlights />
+            <ContentPreview />
+            <CourseForWhom />
+            <CourseFeatures />
+            <CourseExtraDetails />
           </div>
 
           {/* Right Column - Video and Purchase */}
