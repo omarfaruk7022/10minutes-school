@@ -33,7 +33,7 @@ const previewItems = [
   },
 ];
 
-const ContentPreview: FC = () => {
+const CourseForWhom: FC = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const toggleAccordion = (index: number) => {
@@ -76,4 +76,4 @@ const ContentPreview: FC = () => {
   );
 };
 
-export default ContentPreview;
+export default CourseForWhom;
