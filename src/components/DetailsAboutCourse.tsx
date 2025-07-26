@@ -59,7 +59,7 @@ const DetailsAboutCourse: FC<{ about: AboutSection }> = ({ about }) => {
   return (
     <>
       <h2 className="text-2xl font-bold text-black mb-4">{about?.name}</h2>
-      <section className="max-w-4xl mx-auto bg-white rounded-lg border p-6 mt-8">
+      <section className="max-w-4xl mx-auto bg-white rounded-lg border p-6">
         <ul className="divide-y divide-gray-300 divide-dashed px-4">
           {about?.values.map((item, idx) => (
             <li key={idx}>

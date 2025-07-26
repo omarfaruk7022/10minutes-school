@@ -180,10 +180,8 @@ export default function RightColumn({
 
   return (
     <div className="border w-[400px]">
-      {/* Video/Image Preview */}
       <div className="bg-white overflow-hidden">
         <div className="relative aspect-video bg-gray-900">
-          {/* Navigation Arrows */}
           {previewItems.length > 1 && (
             <>
               <button
@@ -201,7 +199,6 @@ export default function RightColumn({
             </>
           )}
 
-          {/* Main Content */}
           {currentMedia?.resource_type === "video" ? (
             <iframe
               src={getYouTubeEmbedUrl(currentMedia.resource_value)}

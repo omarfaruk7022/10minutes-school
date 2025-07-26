@@ -4,7 +4,7 @@ import { IoMdCheckmark } from "react-icons/io";
 
 interface FeatureExplanationValue {
   checklist: string[];
-  file_type: string; 
+  file_type: string;
   file_url: string;
   id: string;
   title: string;
@@ -20,13 +20,12 @@ interface FeatureExplanationsBlock {
   values: FeatureExplanationValue[];
 }
 
-const CourseExtraDetails: FC<{ features: FeatureExplanationsBlock }> = ({
+const ExclusiveFeatures: FC<{ features: FeatureExplanationsBlock }> = ({
   features,
 }) => {
-
   return (
     <section className="">
-      <h2 className="text-lg text-black">{features.name}</h2>
+      <h2 className="text-2xl font-bold text-black mb-4">{features.name}</h2>
       <div className="max-w-5xl mx-auto space-y-5 border border-gray-200 rounded-lg p-2 mt-2  bg-white">
         {features?.values.map((item, idx) => {
           const isSecondLast = idx === features.values.length - 1;
@@ -65,4 +64,4 @@ const CourseExtraDetails: FC<{ features: FeatureExplanationsBlock }> = ({
   );
 };
 
-export default CourseExtraDetails;
+export default ExclusiveFeatures;
