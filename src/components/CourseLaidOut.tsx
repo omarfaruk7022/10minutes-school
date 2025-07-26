@@ -28,7 +28,7 @@ export default function CourseLaidOut({
           {data?.name}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#111827] p-5">
-          {data?.values?.map((feature: any, index: number) => (
+          {data?.values?.map((feature, index) => (
             <div key={index} className="rounded-lg p-4 flex  space-x-3">
               <img src={feature?.icon} className="w-[40px] h-[40px]" alt="" />
               <div>

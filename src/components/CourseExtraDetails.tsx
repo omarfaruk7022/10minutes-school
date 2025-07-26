@@ -1,48 +1,65 @@
+import Image from "next/image";
 import { FC } from "react";
-import { FaChalkboardTeacher, FaFileAlt } from "react-icons/fa";
+import { IoMdCheckmark } from "react-icons/io";
 
-const CourseExtraDetails: FC = () => {
-  const lectures = [
-    "IELTS Academic ও General Training নিয়ে আলোচনা",
-    "Reading, Writing, Listening ও Speaking এর Overview ও Format",
-    "প্রতিটি প্রশ্নের ধরণ-ভিডিও উত্তর করার স্ট্র্যাটেজি",
-    "ভিডিওর সাথে প্ল্যাকটিসের সুবিধা",
-  ];
-  const mockDetails = [
-    "১০টি Reading এবং Listening Mock Test",
-    "Computer-delivered IELTS পরীক্ষার অভিজ্ঞতাসমূহ",
-    "উত্তর সমাধান করার সাথে সাথে রেজাল্ট",
-    "যেকোনো সময়, যেকোনো জায়গা থেকে মক টেস্ট",
-  ];
+interface FeatureExplanationValue {
+  checklist: string[];
+  file_type: string; 
+  file_url: string;
+  id: string;
+  title: string;
+  video_thumbnail: string;
+}
+
+interface FeatureExplanationsBlock {
+  type: "feature_explanations";
+  name: string;
+  description: string;
+  bg_color: string;
+  order_idx: number;
+  values: FeatureExplanationValue[];
+}
+
+const CourseExtraDetails: FC<{ features: FeatureExplanationsBlock }> = ({
+  features,
+}) => {
+
   return (
     <section className="">
-      <div className="max-w-5xl mx-auto space-y-10 border border-gray-200 rounded-lg p-6 mt-8 bg-white">
-        <section className="max-w-4xl mx-auto  p-6 mt-8">
-          <h2 className="text-2xl font-bold text-purple-800 mb-4">
-            ভিডিও লেকচারের ফিচারসমূহ
-          </h2>
-          <ul className="space-y-3 text-gray-700">
-            {lectures.map((text, idx) => (
-              <li key={idx} className="flex items-start">
-                <FaChalkboardTeacher className="text-teal-600 mt-1 mr-2" />
-                <span>{text}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="max-w-4xl mx-auto  p-6 mt-8">
-          <h2 className="text-2xl font-bold text-purple-800 mb-4">
-            Reading ও Listening Mock Test Features
-          </h2>
-          <ul className="space-y-3 text-gray-700">
-            {mockDetails.map((text, idx) => (
-              <li key={idx} className="flex items-start">
-                <FaFileAlt className="text-orange-500 mt-1 mr-2" />
-                <span>{text}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+      <h2 className="text-lg text-black">{features.name}</h2>
+      <div className="max-w-5xl mx-auto space-y-5 border border-gray-200 rounded-lg p-2 mt-2  bg-white">
+        {features?.values.map((item, idx) => {
+          const isSecondLast = idx === features.values.length - 1;
+
+          return (
+            <section
+              key={idx}
+              className={`max-w-4xl mx-auto p-6 ${
+                isSecondLast ? "border-t border-gray-300 pt-8" : ""
+              }`}
+            >
+              <h2 className="text-lg  text-black mb-4">{item?.title}</h2>
+              <div className="flex justify-between gap-4">
+                <ul className="space-y-3 text-gray-700">
+                  {item?.checklist?.map((text, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <IoMdCheckmark className="text-blue-500 mr-3" size={20} />
+                      <span>{text}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div>
+                  <Image
+                    width={220}
+                    height={220}
+                    src={item?.file_url}
+                    alt={item?.title}
+                  />
+                </div>
+              </div>
+            </section>
+          );
+        })}
       </div>
     </section>
   );

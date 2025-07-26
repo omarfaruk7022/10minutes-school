@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FaCheck } from "react-icons/fa";
+import { IoMdCheckmark } from "react-icons/io";
 
 interface PointerItem {
   id: string;
@@ -23,17 +23,22 @@ interface CourseHighlightsProps {
 
 const CourseHighlights: FC<CourseHighlightsProps> = ({ data }) => {
   return (
-    <section className="max-w-4xl mx-auto border border-gray-200 bg-white rounded-lg p-6 mt-8">
+    <>
       <h2 className="text-2xl font-bold text-black mb-4">{data.name}</h2>
-      <ul className="space-y-3 text-gray-700">
-        {data.values.map((item) => (
-          <li key={item.id} className="flex items-start">
-            <FaCheck className="text-blue-500 mt-1 mr-2" />
-            <span>{item.text}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
+      <section className="max-w-4xl mx-auto border border-gray-200 bg-white rounded-lg p-6 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black p-2">
+          {data.values.map((item) => (
+            <li key={item.id} className="flex items-start">
+              <IoMdCheckmark
+                className="text-blue-500 mr-3 shrink-0"
+                size={20}
+              />
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
