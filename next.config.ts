@@ -8,6 +8,7 @@ const nextConfig = {
       "api.10mschool.com",
       "static.10mschool.com",
       "cdn.10minuteschool.com",
+      "s3.ap-southeast-1.amazonaws.com",
     ],
   },
   // other config options...

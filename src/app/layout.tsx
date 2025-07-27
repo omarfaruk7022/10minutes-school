@@ -1,35 +1,68 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { getCourseData } from "./page";
+import { Metadata } from "next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+export async function generateMetadata({
+  searchParams = {},
+}: {
+  searchParams?: { lang?: string };
+} = {}): Promise<Metadata> {
+  const lang = searchParams.lang?.toUpperCase() || "EN";
+  const { data } = await getCourseData(lang || "EN");
+  const seo = data?.data?.seo;
+  const metaTags = seo?.defaultMeta || [];
+
+  interface MetaTag {
+    value: string;
+    content: string;
+  }
+
+  const getMeta = (value: string) =>
+    (metaTags as MetaTag[]).find((item) => item.value === value)?.content;
+
+  return {
+    title: seo?.title,
+    description: seo?.description,
+    keywords: seo?.keywords,
+    openGraph: {
+      title: getMeta("og:title"),
+      description: getMeta("og:description"),
+      url: getMeta("og:url"),
+      type: ["website", "article"].includes(getMeta("og:type") ?? "")
+        ? (getMeta("og:type") as "website" | "article")
+        : "website",
+
+      locale: getMeta("og:locale"),
+      images: getMeta("og:image")
+        ? [
+            {
+              url: getMeta("og:image") as string,
+              alt: getMeta("og:image:alt") as string,
+              type: getMeta("og:image:type") as string,
+              secureUrl: getMeta("og:image:secure_url") as string,
+            },
+          ].filter((image) => image.url)
+        : [],
+    },
+    metadataBase: new URL("https://10minuteschool.com"),
+  };
+}
+
+const inter = Inter({
   subsets: ["latin"],
+  weight: "400", // only regular
+  variable: "--font-inter",
+  display: "swap",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "10 Minute School - Online Learning Platform",
-  description:
-    "Learn with 10 Minute School - Best online education platform in Bangladesh",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html>
+      <body className={inter.variable}>{children}</body>
     </html>
   );
 }

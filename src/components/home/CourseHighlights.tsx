@@ -3,7 +3,7 @@ import { IoMdCheckmark } from "react-icons/io";
 
 interface PointerItem {
   id: string;
-  icon: string; // might be a string path or a number "0"
+  icon: string;
   color: string;
   text: string;
 }

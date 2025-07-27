@@ -1,6 +1,6 @@
+import Image from "next/image";
 import { FC } from "react";
 import { FaFilePdf } from "react-icons/fa";
-import img from "../../public/images/ms_onset.jpg";
 
 interface GroupJoinEngagementItem {
   background: {
@@ -39,12 +39,12 @@ const IeltsPromo: FC<{ group_join_engagement: GroupJoinEngagementData }> = ({
       {group_join_engagement.values.map((item) => (
         <section
           key={item.id}
-          className="text-white rounded-xl p-10 mx-auto sm:mt-10 sm:px-8 flex justify-between items-center gap-10 bg-cover bg-center"
+          className="text-white rounded-xl p-10 mx-auto sm:mt-10 sm:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 bg-cover bg-center "
           style={{
             backgroundImage: `url(${item.background.image})`,
           }}
         >
-          <div>
+          <div className="col-span-1">
             <div className="flex items-center mb-4">
               <FaFilePdf className="text-orange-400 text-3xl mr-3" />
               <h2 className="text-2xl font-bold">Free PDF</h2>
@@ -66,8 +66,10 @@ const IeltsPromo: FC<{ group_join_engagement: GroupJoinEngagementData }> = ({
             </a>
           </div>
 
-          <div className="mt-6">
-            <img
+          <div className="mt-6 col-span-1">
+            <Image
+              width={350}
+              height={200}
               src={item.thumbnail}
               alt={item.title}
               className=" w-full max-w-[350px] object-cover"

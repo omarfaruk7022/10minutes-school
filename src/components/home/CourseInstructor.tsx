@@ -24,12 +24,15 @@ export default function CourseInstructor({
 }: {
   instructor: InstructorsBlock;
 }) {
-
   return (
     <div>
       {instructor?.values?.length > 0 &&
         instructor.values.map((instructorValue, index) => (
-          <div key={index} className="bg-white bg-opacity-10 rounded-lg ">
+          <div
+            key={index}
+            id={"instructor"}
+            className="bg-white bg-opacity-10 rounded-lg "
+          >
             <h2 className="text-2xl font-bold mb-6 bengali-text text-black">
               {instructor?.name}
             </h2>

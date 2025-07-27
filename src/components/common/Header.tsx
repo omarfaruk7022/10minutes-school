@@ -3,45 +3,26 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { FiSearch, FiPhone } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import logo from "../../public/images/10mslogo-svg.svg";
+import logo from "../../../public/images/10mslogo-svg.svg";
 import Link from "next/link";
 export default function Header() {
   const [currentLanguage, setCurrentLanguage] = useState("EN");
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const savedLanguage = getCookie("language") || "EN";
-    setCurrentLanguage(savedLanguage);
+    const urlLang = new URL(window.location.href).searchParams.get("lang");
+    if (urlLang === "EN" || urlLang === "BN") {
+      setCurrentLanguage(urlLang);
+    }
   }, []);
 
-  const setCookie = (name: string, value: string, days = 30) => {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-  };
-
-  const getCookie = (name: string): string | null => {
-    if (typeof document === "undefined") return null;
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(";");
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  };
-
-  // Handle language change
-  const handleLanguageChange = (language: string) => {
-    setCookie("language", language);
+  const handleLanguageChange = (language: "EN" | "BN") => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", language);
     setCurrentLanguage(language);
-    setIsLanguageDropdownOpen(false);
-    // Reload the page to apply language changes
-    window.location.reload();
+    window.location.href = url.toString();
   };
 
-  // Get text based on current language
   const getText = (en: string, bn: string) => {
     return currentLanguage === "EN" ? en : bn;
   };

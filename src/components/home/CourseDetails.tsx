@@ -1,5 +1,4 @@
 import { FaStar } from "react-icons/fa";
-import RightColumn from "./RightColumn";
 
 interface Course {
   id: number;
@@ -35,7 +34,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
       }}
     >
       <div className=" text-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 py-12">
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3">
           {/* Course Title and Rating */}
           <div className="col-span-2">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">

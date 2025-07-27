@@ -1,23 +1,28 @@
-import Header from "@/components/Header";
-import Banner from "@/components/Banner";
-import CourseDetails from "@/components/CourseDetails";
-import IeltsPromo from "@/components/IeltsPromo";
-import CourseHighlights from "@/components/CourseHighlights";
-import CourseLaidOut from "@/components/CourseLaidOut";
-import { cookies } from "next/headers";
-import CourseInstructor from "@/components/CourseInstructor";
-import RightColumn from "@/components/RightColumn";
-import Testimonials from "@/components/Testimonials";
-import DetailsAboutCourse from "@/components/DetailsAboutCourse";
-import ExclusiveFeatures from "@/components/ExclusiveFeatures";
+import Header from "@/components/common/Header";
+import Banner from "@/components/common/Banner";
+import CourseDetails from "@/components/home/CourseDetails";
+import IeltsPromo from "@/components/home/IeltsPromo";
+import CourseHighlights from "@/components/home/CourseHighlights";
+import CourseLaidOut from "@/components/home/CourseLaidOut";
+import CourseInstructor from "@/components/home/CourseInstructor";
+import RightColumn from "@/components/home/RightColumn";
+import Testimonials from "@/components/home/Testimonials";
+import DetailsAboutCourse from "@/components/home/DetailsAboutCourse";
+import ExclusiveFeatures from "@/components/home/ExclusiveFeatures";
+import Footer from "@/components/common/Footer";
+import CourseSlider from "@/components/home/CourseSlider";
+import CoursePricing from "@/components/home/CoursePricing";
+import SectionNavigation from "@/components/home/SectionNavigation";
 
-export async function getCourseData() {
+interface PageProps {
+  searchParams: { lang?: string };
+}
+
+export async function getCourseData(lang: string | undefined) {
+  const language = (lang || "EN").toLowerCase();
   try {
-    const cookieStore = await cookies();
-    const lang = cookieStore.get("language")?.value || "EN";
-
     const res = await fetch(
-      `https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=${lang.toLowerCase()}`,
+      `https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=${language}`,
       {
         next: { revalidate: 3600 }, // ISR for 1 hour
         headers: {
@@ -83,15 +88,11 @@ export async function getCourseData() {
   }
 }
 
-export default async function Home() {
-  const data = await getCourseData();
+export default async function Home({ searchParams }: PageProps) {
+  const lang = searchParams.lang?.toUpperCase() || "EN";
+  const data = await getCourseData(lang);
   const course = data.course;
   const sections = data.sections;
-
-  const cookieStore = await cookies();
-  const lang = cookieStore.get("language")?.value || "EN";
-
-  console.log("Current language:", lang);
 
   const laidOut = sections.find(
     (section: { type?: string }) => section.type == "features"
@@ -120,22 +121,42 @@ export default async function Home() {
     <main className="min-h-screen bg-white">
       <Header />
       <Banner />
+      <CourseSlider media={data?.data?.data?.media} />
       <CourseDetails course={course} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 py-12">
+      <CoursePricing
+        cta_text={data?.data?.data?.cta_text}
+        checklist={data?.data?.data?.checklist}
+      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 pb-12 pt-5">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
           {/* Left Column - Course Info */}
           <div className="lg:col-span-2 space-y-8">
-            <CourseInstructor instructor={instructor} />
-            <CourseLaidOut data={laidOut} />
-            <IeltsPromo group_join_engagement={group_join_engagement} />
-            <CourseHighlights data={pointers} />
-            {/* <CourseFeatures /> */}
-            <DetailsAboutCourse about={about} />
-            <ExclusiveFeatures features={feature_explanations} />
-            <Testimonials testimonial={testimonial} />
+            <SectionNavigation />
+            <div id="instructor" className="scroll-mt-24">
+              <CourseInstructor instructor={instructor} />
+            </div>
+            <div id="laid-out" className="scroll-mt-24">
+              <CourseLaidOut data={laidOut} />
+            </div>
+            <div id="promo" className="scroll-mt-24">
+              <IeltsPromo group_join_engagement={group_join_engagement} />
+            </div>
+            <div id="highlights" className="scroll-mt-24">
+              <CourseHighlights data={pointers} />
+            </div>
+            <div id="about" className="scroll-mt-24">
+              <DetailsAboutCourse about={about} />
+            </div>
+            <div id="features" className="scroll-mt-24">
+              <ExclusiveFeatures features={feature_explanations} />
+            </div>
+            <div id="testimonials" className="scroll-mt-24">
+              <Testimonials testimonial={testimonial} />
+            </div>
           </div>
-          <div className="  col-span-1">
+          <div className="col-span-1">
             <div className="absolute top-[-300px]">
+              {/* Right column - pricing*/}
               <RightColumn
                 media={data?.data?.data?.media}
                 cta_text={data?.data?.data?.cta_text}
@@ -145,6 +166,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
