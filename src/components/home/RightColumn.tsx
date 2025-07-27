@@ -242,7 +242,7 @@ export default function RightColumn({
           </div>
         </div>
       </div>
-      <div className="flex justify-between items-center p-2 mt-2">
+      <div className=" hidden md:flex justify-between items-center p-2 mt-2 ">
         <p className="text-[#A3A3A3] text-sm">
           কোর্সটি সম্পর্কে বিস্তারিত জানতে
         </p>
