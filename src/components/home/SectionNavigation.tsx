@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
@@ -16,13 +16,46 @@ export default function SectionNavigation() {
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
 
+  const [currentLanguage, setCurrentLanguage] = useState("EN");
+
+  useEffect(() => {
+    const urlLang = new URL(window.location.href).searchParams.get("lang");
+    if (urlLang === "EN" || urlLang === "BN") {
+      setCurrentLanguage(urlLang);
+    }
+  }, []);
+  const getText = (textObj: { EN: string; BN: string }) => {
+    return currentLanguage === "EN" ? textObj.EN : textObj.BN;
+  };
+
   const tabs = [
-    { id: "instructor", name: "কোর্স ইন্সট্রাক্টর" },
-    { id: "laid-out", name: "কোর্সটি যেভাবে সাজানো হয়েছে" },
-    { id: "highlights", name: "কোর্সটি করে যা শিখবেন" },
-    { id: "about", name: "কোর্স সম্পর্কে বিস্তারিত" },
-    { id: "features", name: "কোর্স এক্সক্লুসিভ ফিচার" },
-    { id: "testimonials", name: "শিক্ষার্থীরা যা বলছে" },
+    { id: "instructor", name: { EN: "Instructor", BN: "কোর্স ইন্সট্রাক্টর" } },
+    {
+      id: "laid-out",
+      name: {
+        EN: "How the course is laid out",
+        BN: "কোর্সটি যেভাবে সাজানো হয়েছে",
+      },
+    },
+    {
+      id: "highlights",
+      name: {
+        EN: "What you will learn by doing the course",
+        BN: "কোর্সটি করে যা শিখবেন",
+      },
+    },
+    {
+      id: "about",
+      name: { EN: "Course details", BN: "কোর্স সম্পর্কে বিস্তারিত" },
+    },
+    {
+      id: "features",
+      name: { EN: "Course Exclusive Feature", BN: "কোর্স এক্সক্লুসিভ ফিচার" },
+    },
+    {
+      id: "testimonials",
+      name: { EN: "Students opinion", BN: "শিক্ষার্থীরা যা বলছে" },
+    },
   ];
 
   return (
@@ -74,7 +107,7 @@ export default function SectionNavigation() {
                   }
                 }}
               >
-                {tab.name}
+                {getText(tab.name)}
               </button>
             </SwiperSlide>
           ))}

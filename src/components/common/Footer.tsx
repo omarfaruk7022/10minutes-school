@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -11,8 +12,21 @@ import { IoChatbubbleEllipsesOutline, IoCallOutline } from "react-icons/io5";
 import logo from "../../../public/images/10mslogo-svg.svg";
 import play from "../../../public/images/google-play-icon.jpeg";
 import apple from "../../../public/images/ios-store-icon.jpeg";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+  const [currentLanguage, setCurrentLanguage] = useState<"EN" | "BN">("EN");
+
+  useEffect(() => {
+    const urlLang = new URL(window.location.href).searchParams.get("lang");
+    if (urlLang === "EN" || urlLang === "BN") {
+      setCurrentLanguage(urlLang);
+    }
+  }, []);
+
+  const getText = (en: string, bn: string) => {
+    return currentLanguage === "EN" ? en : bn;
+  };
   return (
     <footer className="bg-white text-gray-800 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-14  relative">
       <div className=" grid grid-cols-1 md:grid-cols-4 gap-8 border-b  border-gray-200 pb-8 mb-8">
@@ -21,7 +35,12 @@ export default function Footer() {
           <Link href={"/"} className="flex-shrink-0">
             <Image width={100} height={100} alt="logo" src={logo}></Image>
           </Link>
-          <p className="text-sm mb-4">ডাউনলোড করুন আমাদের মোবাইল অ্যাপ</p>
+          <p className="text-sm my-4">
+            {getText(
+              "Download our mobile app",
+              "ডাউনলোড করুন আমাদের মোবাইল অ্যাপ"
+            )}
+          </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="#" className="block">
               <Image
@@ -46,36 +65,39 @@ export default function Footer() {
 
         {/* Column 2: Company Links */}
         <div>
-          <h3 className="font-bold text-lg mb-4">কোম্পানি</h3>
+          <h3 className="font-bold text-lg mb-4">
+            {" "}
+            {getText("Company", "কোম্পানি")}
+          </h3>
           <ul className="space-y-2 text-sm">
             <li>
               <Link href="#" className="hover:underline">
-                ক্যারিয়ার / নিয়োগ বিজ্ঞপ্তি
+                {getText("Careers", "ক্যারিয়ার / নিয়োগ বিজ্ঞপ্তি")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                শিক্ষক হিসেবে যোগ দিন
+                {getText("Join as Teacher", "শিক্ষক হিসেবে যোগ দিন")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                অ্যাফিলিয়েট হিসেবে যোগ দিন
+                {getText("Join as Affiliate", "অ্যাফিলিয়েট হিসেবে যোগ দিন")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                প্রাইভেসি পলিসি
+                {getText("Privacy Policy", "প্রাইভেসি পলিসি")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                রিফান্ড পলিসি
+                {getText("Refund Policy", "রিফান্ড পলিসি")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                ব্যবহারকারীর শর্তাবলি
+                {getText("Terms of Use", "ব্যবহারকারীর শর্তাবলি")}
               </Link>
             </li>
           </ul>
@@ -83,36 +105,41 @@ export default function Footer() {
 
         {/* Column 3: Other Links */}
         <div>
-          <h3 className="font-bold text-lg mb-4">অন্যান্য</h3>
+          <h3 className="font-bold text-lg mb-4">
+            {getText("Others", "অন্যান্য")}
+          </h3>
           <ul className="space-y-2 text-sm">
             <li>
               <Link href="#" className="hover:underline">
-                ব্লগ
+                {getText("Blog", "ব্লগ")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                বুক স্টোর
+                {getText("Book Store", "বুক স্টোর")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                ফ্রি নোটস ও গাইড
+                {getText("Free Notes & Guides", "ফ্রি নোটস ও গাইড")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                চাকরি প্রস্তুতি কোর্সসমূহ
+                {getText(
+                  "Job Preparation Courses",
+                  "চাকরি প্রস্তুতি কোর্সসমূহ"
+                )}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                সার্টিফিকেট ভেরিফাই করুন
+                {getText("Verify Certificate", "সার্টিফিকেট ভেরিফাই করুন")}
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:underline">
-                ফ্রি ডাউনলোড
+                {getText("Free Download", "ফ্রি ডাউনলোড")}
               </Link>
             </li>
           </ul>
@@ -120,17 +147,19 @@ export default function Footer() {
 
         {/* Column 4: Contact Information */}
         <div>
-          <h3 className="font-bold text-lg mb-4">আমাদের যোগাযোগ মাধ্যম</h3>
+          <h3 className="font-bold text-lg mb-4">
+            {getText("Contact Us", "আমাদের যোগাযোগ মাধ্যম")}
+          </h3>
           <div className="space-y-2 text-sm mb-6">
             <p>
-              কল করুন:{" "}
+              {getText("Call Us: ", "কল করুন: ")}{" "}
               <Link href="tel:16910" className="text-green-600 hover:underline">
                 16910
               </Link>{" "}
               (24x7)
             </p>
             <p>
-              হোয়াটসঅ্যাপ:{" "}
+              {getText("WhatsApp:", "হোয়াটসঅ্যাপ:")}{" "}
               <Link
                 href="https://wa.me/8801896016252"
                 className="text-green-600 hover:underline"
@@ -140,7 +169,7 @@ export default function Footer() {
               (24x7)
             </p>
             <p>
-              দেশের বাহির থেকে:{" "}
+              {getText("From Outside the Country:", "দেশের বাহির থেকে:")}{" "}
               <Link
                 href="tel:+8809610916910"
                 className="text-green-600 hover:underline"
@@ -149,7 +178,7 @@ export default function Footer() {
               </Link>
             </p>
             <p>
-              ইমেইল:{" "}
+              {getText("Email:", "ইমেইল:")}{" "}
               <Link
                 href="mailto:support@10minuteschool.com"
                 className="text-green-600 hover:underline"
@@ -200,7 +229,12 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="max-w-7xl mx-auto text-center text-sm text-gray-600">
-        <p>স্বত্ব © ২০২৩ - ২০২৫ টেন মিনিট স্কুল কর্তৃক সর্বস্বত্ব সংরক্ষিত</p>
+        <p>
+          {getText(
+            "© 2015 - 2025 Ten Minute School. All rights reserved.",
+            "স্বত্ব © ২০১৫ - ২০২৫ টেন মিনিট স্কুল কর্তৃক সর্বস্বত্ব সংরক্ষিত"
+          )}
+        </p>
       </div>
 
       {/* Floating Buttons */}

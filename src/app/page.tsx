@@ -5,7 +5,6 @@ import IeltsPromo from "@/components/home/IeltsPromo";
 import CourseHighlights from "@/components/home/CourseHighlights";
 import CourseLaidOut from "@/components/home/CourseLaidOut";
 import CourseInstructor from "@/components/home/CourseInstructor";
-import RightColumn from "@/components/home/RightColumn";
 import Testimonials from "@/components/home/Testimonials";
 import DetailsAboutCourse from "@/components/home/DetailsAboutCourse";
 import ExclusiveFeatures from "@/components/home/ExclusiveFeatures";
@@ -13,6 +12,7 @@ import Footer from "@/components/common/Footer";
 import CourseSlider from "@/components/home/CourseSlider";
 import CoursePricing from "@/components/home/CoursePricing";
 import SectionNavigation from "@/components/home/SectionNavigation";
+import RightColumnStickySetup from "@/components/home/RightColumnStickySetup";
 
 interface PageProps {
   searchParams: { lang?: string };
@@ -153,14 +153,12 @@ export default async function Home({ searchParams }: PageProps) {
             </div>
           </div>
           <div className="col-span-1">
-            <div className="absolute top-[-300px]">
-              {/* Right column - pricing*/}
-              <RightColumn
-                media={data?.data?.data?.media}
-                cta_text={data?.data?.data?.cta_text}
-                checklist={data?.data?.data?.checklist}
-              />
-            </div>
+            {/* Right column - pricing*/}
+            <RightColumnStickySetup
+              media={data?.data?.data?.media}
+              cta_text={data?.data?.data?.cta_text}
+              checklist={data?.data?.data?.checklist}
+            />
           </div>
         </div>
       </div>

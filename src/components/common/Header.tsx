@@ -15,16 +15,15 @@ export default function Header() {
       setCurrentLanguage(urlLang);
     }
   }, []);
+  const getText = (en: string, bn: string) => {
+    return currentLanguage === "EN" ? en : bn;
+  };
 
   const handleLanguageChange = (language: "EN" | "BN") => {
     const url = new URL(window.location.href);
     url.searchParams.set("lang", language);
     setCurrentLanguage(language);
     window.location.href = url.toString();
-  };
-
-  const getText = (en: string, bn: string) => {
-    return currentLanguage === "EN" ? en : bn;
   };
 
   return (
