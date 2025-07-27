@@ -20,17 +20,15 @@ interface PageProps {
 
 export async function getCourseData(lang: string | undefined) {
   const language = (lang || "EN").toLowerCase();
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   try {
-    const res = await fetch(
-      `https://api.10minuteschool.com/discovery-service/api/v1/products/ielts-course?lang=${language}`,
-      {
-        next: { revalidate: 3600 }, // ISR for 1 hour
-        headers: {
-          "X-TENMS-SOURCE-PLATFORM": "web",
-          Accept: "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${apiBaseUrl}?lang=${language}`, {
+      next: { revalidate: 3600 }, // ISR for 1 hour
+      headers: {
+        "X-TENMS-SOURCE-PLATFORM": "web",
+        Accept: "application/json",
+      },
+    });
 
     if (!res.ok) {
       throw new Error(
