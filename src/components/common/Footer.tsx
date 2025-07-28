@@ -28,7 +28,7 @@ export default function Footer() {
     return currentLanguage === "EN" ? en : bn;
   };
   return (
-    <footer className="bg-white text-gray-800 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-14  relative">
+    <footer className="bg-white text-gray-800 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 relative">
       <div className=" grid grid-cols-1 md:grid-cols-4 gap-8 border-b  border-gray-200 pb-8 mb-8">
         {/* Column 1: App Download */}
         <div className="flex flex-col items-start">

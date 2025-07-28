@@ -50,7 +50,7 @@ export default function RightColumnStickySetup({
   return (
     <div>
       <div
-        className={` ${isSticky ? "fixed top-20 " : "absolute top-[-300px]"}`}
+        className={`${isSticky ? "fixed top-20 " : "absolute top-[-300px]"}`}
       >
         {/* Right column - pricing*/}
         <RightColumn

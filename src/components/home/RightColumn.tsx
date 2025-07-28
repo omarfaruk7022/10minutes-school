@@ -94,7 +94,7 @@ export default function RightColumn({
 
   return (
     <>
-      <div className="border border-gray-200 w-[400px] hidden md:block">
+      <div className="border border-gray-200 w-[400px] hidden md:block ">
         <div
           className={`${
             isSticky ? "hidden" : "block"

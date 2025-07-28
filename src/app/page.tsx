@@ -126,9 +126,9 @@ export default async function Home({ searchParams }: PageProps) {
         checklist={data?.data?.data?.checklist}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 pb-12 pt-5">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative " >
           {/* Left Column - Course Info */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-8 ">
             <SectionNavigation />
             <div id="instructor" className="scroll-mt-24">
               <CourseInstructor instructor={instructor} />

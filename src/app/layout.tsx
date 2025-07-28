@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { getCourseData } from "./page";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 export async function generateMetadata({
   searchParams = {},
@@ -62,7 +63,10 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className={inter.variable}>{children}</body>
+      <body className={inter.variable}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
